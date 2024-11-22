@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package xmlns="http://soap.sforce.com/2006/04/metadata">
+  <types>
+    <members>Case.samplerule</members>
+    <name>AssignmentRule</name>
+  </types>
+  <types>
+    <members>myns__MyCustomObject__c</members>
+    <name>CustomObject</name>
+  </types>
+  <types>
+    <members>Account.AccountTeam</members>
+    <name>ListView</name>
+  </types>
+  <types>
+    <members>Account.SLA__c</members>
+    <members>Account.Phone</members>
+    <name>CustomField</name>
+  </types>
+  <types>
+    <members>SalesTeamRole</members>
+    <name>StandardValueSet</name>
+  </types>
+  <types>
+    <members>ClaseApex</members>
+    <members>ClaseApexTest</members>
+    <name>ApexClass</name>
+  </types>
+  <types>
+    <members>lwc_test</members>
+    <name>LightningComponentBundle</name>
+  </types>
+  <version>62.0</version>
+</Package>

@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "xlsx": "^0.18.5",
+    "xmlbuilder": "^15.1.1"
+  }
+}
