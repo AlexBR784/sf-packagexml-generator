@@ -1,7 +1,9 @@
 const xlsx = require("xlsx");
 const xmlbuilder = require("xmlbuilder");
 const fs = require("fs");
-const readline = require("readline");
+const { exec } = require("child_process");
+
+const filePath = process.argv[2];
 
 function readExcelFile(filePath) {
   const workbook = xlsx.readFile(filePath);
@@ -60,31 +62,38 @@ function generatePackageXML(metaMap) {
   return root.end({ pretty: true });
 }
 
-//Pedir nombre del archivo
-
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
-
-// Usar la función para leer el archivo
-rl.question("Ingrese el nombre del archivo: ", (filename) => {
-  try {
-    const excelData = readExcelFile(filename + ".xlsx");
-    const xml = generatePackage(excelData);
-
-    const outputDir = "./output";
-    if (!fs.existsSync(outputDir)) {
-      fs.mkdirSync(outputDir);
-    }
-
-    // Escribir el XML en un archivo
-    fs.writeFileSync(`${outputDir}/package.xml`, xml, "utf8");
-
-    console.log(xml);
-    rl.close();
-  } catch (error) {
-    console.log("Error al leer el archivo");
-    rl.close();
+try {
+  if (!filePath) {
+    throw new Error("No se ingresó un archivo");
   }
-});
+  const correctFilePath = filePath.includes(".xlsx")
+    ? filePath
+    : filePath + ".xlsx";
+
+  if (!fs.existsSync(correctFilePath)) {
+    throw new Error(`No se encontró el archivo ${correctFilePath}`);
+  }
+
+  const excelData = readExcelFile(correctFilePath);
+  const xml = generatePackage(excelData);
+
+  const outputDir = "./output";
+  if (!fs.existsSync(outputDir)) {
+    fs.mkdirSync(outputDir);
+  }
+
+  // Escribir el XML en un archivo
+  fs.writeFileSync(`${outputDir}/package.xml`, xml, "utf8");
+
+  console.log(xml);
+
+  const outputDirWindowsPath = outputDir.replace(/\//g, "\\");
+  exec(`start ${outputDirWindowsPath}`, (err) => {
+    if (err) {
+      console.error("Error al abrir el explorador de archivos:", err);
+      console.error("Command executed:", `explorer ${outputDirWindowsPath}`);
+    }
+  });
+} catch (error) {
+  console.error("Error:", error.message);
+}
