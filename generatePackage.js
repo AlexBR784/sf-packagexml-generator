@@ -20,21 +20,23 @@ const generatePackage = (excelData) => {
   // Para cada fila, juntar los datos que sean del mismo Meta
   const metaMap = {};
   excelData.forEach((data) => {
-    const { Tipo, Meta, Object, Api } = data;
+    const { Tipo, MetadataType: Meta, Object, ApiName: Api } = data;
 
-    if (Meta != "" && Meta != null && Meta != undefined) {
-      if (!metaMap[Meta]) {
-        metaMap[Meta] = { Apis: [] };
-      }
-
-      if (Object) {
-        if (Api) {
-          metaMap[Meta].Apis.push(`${Object}.${Api}`);
-        } else {
-          metaMap[Meta].Apis.push(Object);
+    if (Tipo === "Salesforce") {
+      if (Meta != "" && Meta != null && Meta != undefined) {
+        if (!metaMap[Meta]) {
+          metaMap[Meta] = { Apis: [] };
         }
-      } else if (Api) {
-        metaMap[Meta].Apis.push(Api);
+
+        if (Object) {
+          if (Api) {
+            metaMap[Meta].Apis.push(`${Object}.${Api}`);
+          } else {
+            metaMap[Meta].Apis.push(Object);
+          }
+        } else if (Api) {
+          metaMap[Meta].Apis.push(Api);
+        }
       }
     }
   });
@@ -75,6 +77,7 @@ try {
   }
 
   const excelData = readExcelFile(correctFilePath);
+  console.log(excelData);
   const xml = generatePackage(excelData);
 
   const outputDir = "./output";
