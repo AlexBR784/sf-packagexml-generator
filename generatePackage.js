@@ -30,7 +30,11 @@ const generatePackage = (excelData) => {
 
         if (Object) {
           if (Api) {
-            metaMap[Meta].Apis.push(`${Object}.${Api}`);
+            if (Meta === "Layout") {
+              metaMap[Meta].Apis.push(`${Object}-${Api}`);
+            } else {
+              metaMap[Meta].Apis.push(`${Object}.${Api}`);
+            }
           } else {
             metaMap[Meta].Apis.push(Object);
           }

@@ -30,5 +30,9 @@
     <members>lwc_test</members>
     <name>LightningComponentBundle</name>
   </types>
+  <types>
+    <members>Objeto__c-Página Objeto</members>
+    <name>Layout</name>
+  </types>
   <version>62.0</version>
 </Package>
