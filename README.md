@@ -32,10 +32,6 @@ npm run generate <ruta_del_archivo_excel>
 2. Ejecuta el programa e introduce el nombre del archivo `.xlsx`.
 3. En la carpeta `output` encontrarás el archivo `xml`.
 
-1. Genera o modifica un archivo Excel similar a la plantilla `Metadatos.xlsx`.
-2. Ejecuta el programa e introduce el nombre del archivo `.xlsx`.
-3. En la carpeta `output` encontrarás el archivo `xml`.
-
 ### Tecnologías Usadas
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
